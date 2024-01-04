@@ -3,11 +3,11 @@
         {
             "name": "Linux",
             "includePath": [
-               "./TEST_LIB/"
+                "${workspaceFolder}/LIB/**"
             ],
             "browse": {
                 "path":[
-                    "${workspaceFolder}/TEST_LIB"
+                    "${workspaceFolder}/LIB/**"
                 ]
             },
             "defines": [],
