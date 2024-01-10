@@ -18,7 +18,6 @@ int main(int argC ,  char ** argV)
 		usageErr("%s old_file new_file",argV[0]);
 
 	/* open the input and the output file */
-
 	inputFd = open(argV[1],O_RDONLY);
 
 	if(inputFd == -1)
@@ -48,9 +47,5 @@ int main(int argC ,  char ** argV)
 		errExit("Close output file");
 
 	exit(EXIT_SUCCESS);
-
-
-	
-
 }
 
