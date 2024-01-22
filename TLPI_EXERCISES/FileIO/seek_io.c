@@ -20,6 +20,8 @@ Each of these operations consists of a letter followed by an associated value
 #include<fcntl.h>
 #include"tlpi_hdr.h"
 
+#define BUFF_SIZE 1024
+
 int
 main(int argC, char ** argV)
 {
@@ -32,4 +34,22 @@ main(int argC, char ** argV)
     fd = open(argV[1],openMode,filePerms);
     if(fd == -1)
         errExit("File open");
+    for(int i = 2 ; i < argC ; i++ )
+    {
+        char option = argV[i][0];
+        char buff[BUFF_SIZE];
+        switch(option)
+        {
+            case 'r':
+            case 'R':
+                long bytesRead = getLong(&argV[i][1],GN_ANY_BASE,argV[i]);           
+            break;
+            case 'w':
+                printf("Write %s String at location\n",&argV[i][1]);
+            break;
+            case 's':
+                printf("Seek %s Bytes\n",&argV[i][1]);
+            break;
+        }
+    }
 } 
