@@ -19,13 +19,15 @@ Each of these operations consists of a letter followed by an associated value
 #include<sys/stat.h>
 #include<fcntl.h>
 #include"tlpi_hdr.h"
+#include<ctype.h>
 
 #define BUFF_SIZE 1024
 
 int
 main(int argC, char ** argV)
 {
-    int fd,openMode;
+    int fd,openMode,iPos;
+    off_t pos;
     mode_t filePerms;
     if(argC < 3 || strcmp(argV[1],"--help") == 0)
         usageErr("%s file {r<length>|R<length}|w<string|s<offset>} ... \n",argV[0]);
@@ -42,14 +44,32 @@ main(int argC, char ** argV)
         {
             case 'r':
             case 'R':
-                long bytesRead = getLong(&argV[i][1],GN_ANY_BASE,argV[i]);           
+                long bytesToRead = getLong(&argV[i][1],GN_ANY_BASE,argV[i]); 
+                int bytesRead;
+
+                bytesRead = read(fd,buff,bytesToRead);   
+                if(bytesRead == -1)  
+                    errExit("Error in reading\n");
+                if(bytesRead == 0)
+                    printf("End-of-file %s",argV[1]);
+                for(int i = 0 ; i < bytesRead ; i++)
+                {
+                    if(option == 'r')
+                        printf("%c",isprint((unsigned char)buff[i])? buff[i]:'?');
+                    else if(option == 'R')
+                        printf("%02x",buff[i]);
+                }
+                printf("\n");
             break;
             case 'w':
-                printf("Write %s String at location\n",&argV[i][1]);
+                printf("\n Write %s String at location\n",&argV[i][1]);
             break;
             case 's':
                 printf("Seek %s Bytes\n",&argV[i][1]);
+                iPos = getInt(argV[i][1],GN_ANY_BASE,argV[i]);
+                pos = lseek(fd,pos,iPos);
             break;
         }
     }
+    close(fd);
 } 

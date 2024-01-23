@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/TLPI_EXERCISES/FileIO/seek_io",
-            "args": ["my_file1","r30","wRohit","s15"],
+            "args": ["my_file1","R30","wRohit","s15"],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],
