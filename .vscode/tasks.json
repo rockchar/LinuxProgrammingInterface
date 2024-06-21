@@ -10,7 +10,7 @@
                 "${file}",
                 "${workspaceFolder}/LIB/*.c",
                 "-o",
-                "${fileDirname}/${fileBasenameNoExtension}",
+                "${fileDirname}/exec/${fileBasenameNoExtension}",
                 "-I",
                 "${workspaceFolder}/LIB/"
             ],
